@@ -19,7 +19,7 @@ namespace sWasteController
             //Initialize the ComboBox with all the SerialPorts of this PC
             cbSerialPorts.TextChanged += (sender, e) => bConnect.Text = "Verbind met " + cbSerialPorts.Text;
             cbSerialPorts.Items.AddRange(SerialPort.GetPortNames());
-            cbSerialPorts.SelectedIndex = 0;
+            if (cbSerialPorts.Items.Count > 0) cbSerialPorts.SelectedIndex = 0;
         }
 
 
