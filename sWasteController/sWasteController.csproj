@@ -32,8 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EV3MessengerLib">
-      <HintPath>..\..\..\..\GitHub\ev3messenger\src\EV3MessengerLib\bin\Release\EV3MessengerLib.dll</HintPath>
+    <Reference Include="EV3MessengerLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\EV3MessengerLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
