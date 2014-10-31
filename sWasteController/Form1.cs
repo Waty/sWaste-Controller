@@ -11,6 +11,7 @@ namespace sWasteController
     {
         private const string LogicBox = "LogicBox";
         private readonly EV3Messenger _messenger = new EV3Messenger();
+        private readonly SpeechSynthesizer _synthesizer = new SpeechSynthesizer();
 
 
         public MainForm()
@@ -45,10 +46,9 @@ namespace sWasteController
             if (_messenger.Connect(cbSerialPorts.Text)) Connected = true;
             else
             {
-                MessageBox.Show(
-                    String.Format(
-                        "Kon geen verbinding maken met een EV3 op poort {0}\nWeet je zeker dat de verbinding goed ingesteld is?",
-                        cbSerialPorts.Text), "Oops", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(String.Format(
+                    "Kon geen verbinding maken met een EV3 op poort {0}\nWeet je zeker dat de verbinding goed ingesteld is?",
+                    cbSerialPorts.Text), "Oops", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -72,8 +72,7 @@ namespace sWasteController
                 if (message == null) return;
 
                 lbLogs.Items.Add(string.Format("[{0}] {1}", DateTime.Now.ToShortTimeString(), message.ValueAsText));
-                using (var synthesizer = new SpeechSynthesizer())
-                    synthesizer.SpeakAsync(message.ValueAsText);
+                _synthesizer.SpeakAsync(message.ValueAsText);
             }
             else Connected = false;
         }
