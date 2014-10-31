@@ -12,6 +12,9 @@ namespace sWasteController
         private const string LogicBox = "LogicBox";
         private readonly EV3Messenger _messenger = new EV3Messenger();
         private readonly SpeechSynthesizer _synthesizer = new SpeechSynthesizer();
+        private int _black;
+        private int _red;
+        private int _white;
 
 
         public MainForm()
@@ -38,6 +41,36 @@ namespace sWasteController
                 bDisconnect.Enabled = value;
 
                 tReceiveMessages.Enabled = value;
+            }
+        }
+
+        public int Red
+        {
+            get { return _red; }
+            set
+            {
+                _red = value;
+                tsslRed.Text = "Rood: " + _red;
+            }
+        }
+
+        public int Black
+        {
+            get { return _black; }
+            set
+            {
+                _black = value;
+                tsslBlack.Text = "Zwart: " + _black;
+            }
+        }
+
+        public int White
+        {
+            get { return _white; }
+            set
+            {
+                _white = value;
+                tsslWhite.Text = "Wit: " + _white;
             }
         }
 
@@ -90,8 +123,18 @@ namespace sWasteController
         private void HandleColorUpdate(Colors color)
         {
             _synthesizer.SpeakAsync(color + " detected");
-
-            //TODO: Implement this...
+            switch (color)
+            {
+                case Colors.Red:
+                    Red++;
+                    break;
+                case Colors.Black:
+                    Black++;
+                    break;
+                default:
+                    White++;
+                    break;
+            }
         }
 
         private enum Colors
