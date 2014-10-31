@@ -71,10 +71,39 @@ namespace sWasteController
                 EV3Message message = _messenger.ReadMessage();
                 if (message == null) return;
 
-                lbLogs.Items.Add(string.Format("[{0}] {1}", DateTime.Now.ToShortTimeString(), message.ValueAsText));
-                _synthesizer.SpeakAsync(message.ValueAsText);
+                switch (message.MailboxTitle)
+                {
+                    case "Color":
+                        HandleColorUpdate((Colors)message.ValueAsNumber);
+                        break;
+
+                    default:
+                        lbLogs.Items.Add(string.Format("[{0}] {1}", DateTime.Now.ToShortTimeString(),
+                            message.ValueAsText));
+                        _synthesizer.SpeakAsync(message.ValueAsText);
+                        break;
+                }
             }
             else Connected = false;
+        }
+
+        private void HandleColorUpdate(Colors color)
+        {
+            _synthesizer.SpeakAsync(color + " detected");
+
+            //TODO: Implement this...
+        }
+
+        private enum Colors
+        {
+            Default,
+            Black,
+            Blue,
+            Green,
+            Yellow,
+            Red,
+            White,
+            Brown
         }
     }
 }
