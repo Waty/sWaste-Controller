@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.IO.Ports;
+using System.Speech.Synthesis;
 using System.Windows.Forms;
 using EV3MessengerLib;
 
@@ -68,7 +69,11 @@ namespace sWasteController
             if (Connected)
             {
                 EV3Message message = _messenger.ReadMessage();
-                if (message != null) lbLogs.Items.Add(String.Format("{0}: {1}", message.MailboxTitle, message));
+                if (message == null) return;
+
+                lbLogs.Items.Add(message.ValueAsText);
+                using (var synthesizer = new SpeechSynthesizer())
+                    synthesizer.SpeakAsync(message.ValueAsText);
             }
             else Connected = false;
         }
