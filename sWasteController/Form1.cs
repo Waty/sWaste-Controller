@@ -68,7 +68,7 @@ namespace sWasteController
             if (Connected)
             {
                 EV3Message message = _messenger.ReadMessage();
-                if (message != null) lbLogs.Items.Add(String.Format("{0}: {1}", message.MailboxTitle, message.ValueAsText));
+                if (message != null) lbLogs.Items.Add(String.Format("{0}: {1}", message.MailboxTitle, message));
             }
             else Connected = false;
         }
