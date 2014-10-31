@@ -71,7 +71,7 @@ namespace sWasteController
                 EV3Message message = _messenger.ReadMessage();
                 if (message == null) return;
 
-                lbLogs.Items.Add(message.ValueAsText);
+                lbLogs.Items.Add(string.Format("[{0}] {1}", DateTime.Now.ToShortTimeString(), message.ValueAsText));
                 using (var synthesizer = new SpeechSynthesizer())
                     synthesizer.SpeakAsync(message.ValueAsText);
             }
